@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
   private Button btnGetAllData;
   private String allDon;
 
+  private Button btnNxtActivity;
+
    private EditText edtName,edtPunchSpeed,edtKickSpeed,edtPunchPower,edtKickPower;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        edtPunchPower=findViewById(R.id.edtPunchPower);
        edtKickSpeed=findViewById(R.id.edtKickSpeed);
         edtKickPower=findViewById(R.id.edtKickPower);
+
+        btnNxtActivity=findViewById(R.id.btnNxtActivity);
 
         btnGetAllData=findViewById(R.id.btnGetAllData);
            txtGetdata=findViewById(R.id.txtGetdata);
@@ -66,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                public void onClick(View v) {
                    allDon="";
                    ParseQuery<ParseObject> querAll = ParseQuery.getQuery("Don");
+                   //querAll.whereGreaterThan("punchPower",2000);
+                   querAll.whereGreaterThanOrEqualTo("punchPower",2000);
+                   querAll.setLimit(1);
                    querAll.findInBackground(new FindCallback<ParseObject>() {
                        @Override
                        public void done(List<ParseObject> objects, ParseException e) {
@@ -86,6 +93,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                            }
                        }
                    });
+               }
+           });
+
+           btnNxtActivity.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+
                }
            });
     }
